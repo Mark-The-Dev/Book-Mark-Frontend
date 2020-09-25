@@ -2,7 +2,9 @@ import React, { Component } from  'react';
 import PropTypes from 'prop-types';
 import BookmarksContext from '../BookmarksContext';
 import config from '../config'
+import { v4 as uuidv4 } from 'uuid';
 import './EditBookmark.css';
+
 
 const Required = () => (
   <span className='AddBookmark__required'>*</span>
@@ -17,8 +19,9 @@ class EditBookmark extends Component {
   
   static contextType = BookmarksContext;
 
+  uuid = uuidv4()
   state = {
-    title: '',
+    title: this.uuid,
     url:'',
     description:'',
     rating:'1',
@@ -33,7 +36,7 @@ class EditBookmark extends Component {
 
     componentDidUpdate(state){
     console.log('Am I here?',this.context)
-    if (this.state.title === ''){
+    if (this.state.title === this.uuid){
       if(this.context){
         this.getState()
       }

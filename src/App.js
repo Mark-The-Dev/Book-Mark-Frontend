@@ -35,6 +35,16 @@ class App extends Component {
       bookmarks: newBookmarks
     })
   }
+  updateBookmark = updatedBookmark => {
+       const newBookmarks = this.state.bookmarks.map(art =>
+         (art.id === updatedBookmark.id)
+           ? updatedBookmark
+           : art
+       )
+       this.setState({
+         bookmarks: newBookmarks
+       })
+     };
 
   componentDidMount() {
     fetch(config.API_ENDPOINT, {
@@ -62,6 +72,7 @@ class App extends Component {
       bookmarks: this.state.bookmarks,
       addBookmark: this.addBookmark,
       deleteBookmark: this.deleteBookmark,
+      updateBookmark: this.updateBookmark
     }
     return (
       <main className='App'>

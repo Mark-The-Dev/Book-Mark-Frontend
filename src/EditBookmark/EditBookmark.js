@@ -62,6 +62,26 @@ class EditBookmark extends Component {
 
   }
   
+  handleSubmit = e => {
+       e.preventDefault()
+
+      let {title, url, description, rating} = this.state
+
+      let patch = { title, url, description, rating}
+      
+       fetch(`http://localhost:8000/api/bookmarks/${this.props.match.params.id}`, {
+         method: 'PATCH',
+         headers: {
+          "content-type": 'application/json',
+          "Authorization": `Bearer ${config.API_KEY}`
+        },
+         body: JSON.stringify(patch)
+       })
+       .then(responseData => {
+               this.context.updateBookmark(responseData)
+             })
+        .then(this.props.history.push('/'))     
+     }
 
   grabTitle = (newTitle) => {
     this.setState({
@@ -96,7 +116,7 @@ class EditBookmark extends Component {
     
 
 
-    console.log('context is heere',this.context)
+    console.log('params',this.props.match.params.id)
 
 
     
